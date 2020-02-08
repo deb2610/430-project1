@@ -4,16 +4,28 @@ const respondJSON = (request, response, status, object) => {
   response.write(JSON.stringify(object));
   response.end();
 };
+const respondXML = (request, response, status, content) => {
+  response.writeHead(status, { 'Content-Type': 'text/xml' });
+  response.write(content);
+  response.end();
+}
 //
-const success = (request, response) => {
+const success = (request, response, acceptedTypes) => {
   const responseJSON = {
     message: 'This is a successful response',
   };
+  console.dir('success accepted type '+acceptedTypes[0])
+  if(acceptedTypes[0] === 'text/xml'){
+    let responseXML = '<response>';
+    responseXML = `${responseXML} <message>'This is a successful response'</message>`
+    responseXML = `${responseXML} </response>`
 
-  respondJSON(request, response, 200, responseJSON);
+    return respondXML(request,response,200,responseXML);
+  }
+  return respondJSON(request, response, 200, responseJSON);
 };
 //
-const badRequest = (request, response, params) => {
+const badRequest = (request, response,acceptedTypes, params) => {
   const responseJSON = {
     message: 'This request has the required parameters',
   };

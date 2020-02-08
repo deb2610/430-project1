@@ -7,19 +7,22 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.34/browser.min.js"></script>
   <script type="text/babel">
   const handleResponse = (xhr) => {
-      const type = xhr.getResponseHeader('Content-Type');
+      let type = xhr.getResponseHeader('Content-Type');
       const content = document.querySelector('#content');
-      console.dir(xhr.getResponseHeader('Content-Type'));
       content.appendChild(document.createElement('hr'));
 
       const h1 = document.createElement('h1');
       const p = document.createElement('p');
       const h2 = document.createElement('h2');
-      // const rawData = document.createElement('p');
+      
+      console.dir('handle type: '+ type);
+      
+      content.appendChild(h1);
+      content.appendChild(p);
+      content.appendChild(h2);
 
       h2.textContent = xhr.response;
-      // rawData.textContent = xhr.response;
-    console.dir('handle type: '+type);
+      
       if(type === 'application/json'){
         const obj = JSON.parse(xhr.response);
         h1.textContent = `message: ${obj.message}`;
@@ -28,14 +31,11 @@
       else if(type === 'text/xml'){
         const message = xhr.responseXML.querySelector('message').textContent;
         const id = xhr.responseXML.querySelector('id').textContent;
-
+        
         h1.textContent = `message: ${message}`;
-        h1.textContent = `id: ${id}`;
+        p.textContent = `id: ${id}`;
       }
 
-      content.appendChild(h1);
-      content.appendChild(p);
-      content.appendChild(h2);
       // content.appendChild(rawData);
     };
   
@@ -44,6 +44,7 @@
       xhr.open('GET',url);
       xhr.setRequestHeader("Accept",acceptedType);
       xhr.onload = () => handleResponse(xhr);
+      console.dir(`url: ${url}  accepted: ${acceptedType}`)
       xhr.send();
     };
     const init = () => {
@@ -55,19 +56,16 @@
         sendAjax(page.value,'application/json');
       }
       const sendXML = () => {
-        console.dir("page val: "+page.value);
         sendAjax(page.value,'text/xml');
       }
 
       sendButton.addEventListener('click', ()=>{
-        const typeButton = document.querySelector('#type');
+        let typeButton = document.querySelector('#type');
         console.dir('val: '+ typeButton.value);
         if(typeButton.value === 'application/json'){
-          console.dir("Type: JSON");
           sendJSON();
         }
         else if(typeButton.value === 'text/xml'){
-          console.dir("Type: XML");
           sendXML();
         }
         else{
