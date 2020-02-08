@@ -21,19 +21,19 @@
       content.appendChild(p);
       content.appendChild(h2);
 
-      h2.textContent = xhr.response;
+      // h2.textContent = xhr.response;
       
       if(type === 'application/json'){
         const obj = JSON.parse(xhr.response);
-        h1.textContent = `message: ${obj.message}`;
-        p.textContent = `id: ${obj.id}`;
+        h1.textContent = `${obj.id}`;
+        p.textContent = `${obj.message}`;
       }
       else if(type === 'text/xml'){
         const message = xhr.responseXML.querySelector('message').textContent;
         const id = xhr.responseXML.querySelector('id').textContent;
         
-        h1.textContent = `message: ${message}`;
-        p.textContent = `id: ${id}`;
+        h1.textContent = `${id}`;
+        p.textContent = `${message}`;
       }
 
       // content.appendChild(rawData);

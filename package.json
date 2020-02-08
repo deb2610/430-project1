@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "description": "",
   "main": "/.src/server.js/",
+  "engines": {
+    "node": "10.16.0",
+    "npm": "6.13.6"
+  },
   "scripts": {
     "start": "node ./src/server.js",
     "pretest": "eslint ./src --fix",
