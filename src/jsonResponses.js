@@ -1,118 +1,68 @@
-//
+
+const users = {};
+
 const respondJSON = (request, response, status, object) => {
   response.writeHead(status, { 'Content-Type': 'application/json' });
   response.write(JSON.stringify(object));
   response.end();
 };
-const respondXML = (request, response, status, message, id) => {
-  let responseXML = '<response>';
-  responseXML = `${responseXML} <message>${message}</message>`;
-  responseXML = `${responseXML} <id>${id}</id>`;
-  responseXML = `${responseXML} </response>`;
 
-  response.writeHead(status, { 'Content-Type': 'text/xml' });
-  response.write(responseXML);
+const respondJSONMeta = (request, response, status) => {
+  response.writeHead(status, { 'Content-Type': 'application/json' });
   response.end();
 };
-//
-const success = (request, response, acceptedTypes) => {
+
+const getUsers = (request, response) => {
   const responseJSON = {
-    message: 'This is a successful response',
+    users,
   };
-  // console.dir('success accepted type '+acceptedTypes[0])
-  if (acceptedTypes[0] === 'text/xml') {
-    return respondXML(request, response, 200, 'This is a successful response', 'Success');
-  }
-  return respondJSON(request, response, 200, responseJSON);
+
+  respondJSON(request, response, 200, responseJSON);
 };
-//
-const badRequest = (request, response, acceptedTypes, params) => {
-  const responseJSON = {
-    message: 'This request has the required parameters',
-  };
-  if (!params.valid || params.valid !== 'true') {
-    responseJSON.message = 'Missing valid query param set to true';
-    responseJSON.id = 'badRequest';
-    if (acceptedTypes[0] === 'text/xml') {
-      return respondXML(request, response, 400, responseJSON.message, responseJSON.id);
-    }
-    return respondJSON(request, response, 400, responseJSON);
-  }
-  if (acceptedTypes[0] === 'text/xml') {
-    return respondXML(request, response, 200, responseJSON.message, responseJSON.id);
-  }
-  return respondJSON(request, response, '200', responseJSON);
-};
-//
-const unauthorized = (request, response, acceptedTypes, params) => {
-  const responseJSON = {
-    message: 'This request has the required parameters',
-    id: 'authorized',
-  };
-  if (!params.loggedIn || params.loggedIn !== 'yes') {
-    responseJSON.message = 'Missing loggedIn query param set to yes';
-    responseJSON.id = 'unauthorized';
-    if (acceptedTypes[0] === 'text/xml') {
-      return respondXML(request, response, 401, responseJSON.message, responseJSON.id);
-    }
-    return respondJSON(request, response, 401, responseJSON);
-  }
-  if (acceptedTypes[0] === 'text/xml') {
-    return respondXML(request, response, 200, responseJSON.message, responseJSON.id);
-  }
-  return respondJSON(request, response, '200', responseJSON);
-};
-//
-const forbidden = (request, response, acceptedTypes) => {
-  const responseJSON = {
-    message: 'This is forbidden',
-    id: 'forbidden',
-  };
-  if (acceptedTypes[0] === 'text/xml') {
-    return respondXML(request, response, 403, responseJSON.message, responseJSON.id);
-  }
-  return respondJSON(request, response, 403, responseJSON);
-};
-//
-const internal = (request, response, acceptedTypes) => {
-  const responseJSON = {
-    message: 'Internal Server Error',
-    id: 'internal',
-  };
-  if (acceptedTypes[0] === 'text/xml') {
-    return respondXML(request, response, 500, responseJSON.message, responseJSON.id);
-  }
-  return respondJSON(request, response, 500, responseJSON);
-};
-//
-const notImplemented = (request, response, acceptedTypes) => {
-  const responseJSON = {
-    message: 'Code not handled by server',
-    id: 'notImplemented',
-  };
-  if (acceptedTypes[0] === 'text/xml') {
-    return respondXML(request, response, 501, responseJSON.message, responseJSON.id);
-  }
-  return respondJSON(request, response, 501, responseJSON);
+const getUsersMeta = (request, response) => {
+  respondJSON(request, response, 200);
 };
 
-const notFound = (request, response, acceptedTypes) => {
+const addUser = (request, response, body) => {
   const responseJSON = {
-    message: 'The page you are looking for was not found.',
+    message: 'Name and age are both required.',
+  };
+
+  if (!body.name || !body.age) {
+    responseJSON.id = 'missingParams';
+    return respondJSON(request, response, 400, responseJSON);
+  }
+
+  let responseCode = 201;
+
+  if (users[body.name]) {
+    responseCode = 204;
+  } else {
+    users[body.name] = {};
+  }
+
+  users[body.name].name = body.name;
+  users[body.name].age = body.age;
+
+  if (responseCode === 201) {
+    responseJSON.message = 'Created Successfully';
+    return respondJSON(request, response, responseCode, responseJSON);
+  }
+  return respondJSONMeta(request, response, responseCode);
+};
+const notFound = (request, response) => {
+  const responseJSON = {
+    message: 'the page nyou are looking for is not found',
     id: 'notFound',
   };
-  if (acceptedTypes[0] === 'text/xml') {
-    return respondXML(request, response, 404, responseJSON.message, responseJSON.id);
-  }
   return respondJSON(request, response, 404, responseJSON);
 };
 
+const notFoundMeta = (request, response) => respondJSONMeta(request, response, 404);
 module.exports = {
-  success,
-  badRequest,
-  unauthorized,
-  forbidden,
-  internal,
-  notImplemented,
+  getUsers,
+  addUser,
+  getUsersMeta,
   notFound,
+  notFoundMeta,
 };

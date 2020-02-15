@@ -9,6 +9,9 @@
   },
   "scripts": {
     "start": "node ./src/server.js",
+    "nodemon": "nodemon -e js,html,css --watch ./src --watch ./hosted ./src/server.js",
+    "build": "babel ./client --out-file ./hosted/bundle.js",
+    "watch": "babel --watch ./client --out-file ./hosted/bundle.js",
     "pretest": "eslint ./src --fix",
     "test": "echo \"Tests complete\""
   },
@@ -23,8 +26,12 @@
   },
   "homepage": "https://github.com/deb2610/http-api-assignment#readme",
   "devDependencies": {
-    "eslint": "^6.8.0",
-    "eslint-config-airbnb": "^18.0.1",
-    "eslint-plugin-import": "^2.20.1"
+    "@babel/cli": "^7.8.4",
+    "@babel/core": "^7.8.4",
+    "@babel/preset-env": "^7.8.4",
+    "eslint": "^4.19.1",
+    "eslint-config-airbnb": "^15.1.0",
+    "eslint-plugin-import": "^2.18.2",
+    "nodemon": "^2.0.2"
   }
 }

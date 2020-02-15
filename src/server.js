@@ -6,31 +6,52 @@ const jsonHandler = require('./jsonResponses.js');
 
 const port = process.env.PORT || process.env.NODE_PORT || 3000;
 
-const urlStruct = {
-  '/': htmlHandler.getIndex,
-  '/style.css': htmlHandler.getCSS,
-  '/success': jsonHandler.success,
-  '/badRequest': jsonHandler.badRequest,
-  '/unauthorized': jsonHandler.unauthorized,
-  '/forbidden': jsonHandler.forbidden,
-  '/internal': jsonHandler.internal,
-  '/notImplemented': jsonHandler.notImplemented,
-  notFound: jsonHandler.notFound,
-};
 
+// handle POST requests
+const handlePost = (request, response) => {
+  const body = [];
+
+  request.on('error', (err) => {
+    console.dir(err);
+    response.statusCode = 400;
+    response.end();
+  });
+
+  request.on('data', (chunk) => {
+    body.push(chunk);
+  });
+
+  request.on('end', () => {
+    const bodyString = Buffer.concat(body).toString();
+    const bodyParams = query.parse(bodyString);
+
+    jsonHandler.addUser(request, response, bodyParams);
+  });
+};
+const urlStruct = {
+  GET: {
+    '/': htmlHandler.getIndex,
+    '/index.html': htmlHandler.getIndex,
+    '/style.css': htmlHandler.getCSS,
+    '/bundle.js': htmlHandler.getBundle,
+    '/getUsers': jsonHandler.getUsers,
+    notFound: jsonHandler.notFound,
+  },
+  HEAD: {
+    '/getUsers': jsonHandler.getUsersMeta,
+    notFound: jsonHandler.notFoundMeta,
+  },
+  POST: {
+    '/addUser': handlePost,
+  },
+};
 const onRequest = (request, response) => {
   const parsedUrl = url.parse(request.url);
-  const params = query.parse(parsedUrl.query);
-  const acceptedTypes = request.headers.accept.split(',');
 
-  // console.dir(request.url);
-  // console.dir(parsedUrl);
-  // console.dir(params);
-
-  if (urlStruct[parsedUrl.pathname]) {
-    urlStruct[parsedUrl.pathname](request, response, acceptedTypes, params);
+  if (urlStruct[request.method][parsedUrl.pathname]) {
+    urlStruct[request.method][parsedUrl.pathname](request, response);
   } else {
-    urlStruct.notFound(request, response, acceptedTypes, params);
+    urlStruct[request.method].notFound(request, response);
   }
 };
 
