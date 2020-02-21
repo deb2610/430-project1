@@ -22,7 +22,7 @@ const parseJSON = (xhr, content) => {
  
 //function to handle our response
 const handleResponse = (xhr,parseResponse) => {
-  const content = document.querySelector('#content');
+  const content = document.querySelector('#output');
   
   //check the status code
   switch(xhr.status) {

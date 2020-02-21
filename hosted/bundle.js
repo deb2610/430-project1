@@ -25,7 +25,7 @@ var parseJSON = function parseJSON(xhr, content) {
 
 
 var handleResponse = function handleResponse(xhr, parseResponse) {
-  var content = document.querySelector('#content'); //check the status code
+  var content = document.querySelector('#output'); //check the status code
 
   switch (xhr.status) {
     case 200:

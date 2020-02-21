@@ -2,32 +2,94 @@
 <html lang="en">
 <head>
   <title>Our simple HTTP server</title>
-  <link rel="stylesheet" type="text/css" href="/style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link href="style.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:400" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Merriweather+Sans:800" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
   
   <script src="/bundle.js"></script>
 </head>
-<body>
-  <section id="top">
-    <h3>POST Status Code Tests</h3>
-    <form id="nameForm" action="/addUser" method="post">
-      <label for="name">Name: </label>
-      <input id="nameField" type="text" name="name" />
-      <label for="age">Age: </label>
-      <input id="ageField" type="number" name="age" min="0" max="100" step="1"/>
-      <input type="submit" value="Add User" />
-    </form>
-    <form id="requestForm" action="/getUsers" method="get">
-      <select id='urlField'>
-        <option value='/getUsers'>/getUsers</option>
-        <option value='/notReal'>/notReal</option>
-      </select>
-      <select id="methodSelect">
-        <option value="get">GET</option>
-        <option value="head">HEAD</option>
-      </select>
-      <input type="submit" value="Send" />
-    </form>  </section>
-  <section id="content">
-  </section>
+<body class="container">
+  <div id="nav">
+    <h1>Moody</h1>
+    <!-- <a id="logo" href="#"><img id="logo-img" src="media/dbsmile-white.png" alt="logo"></a> -->
+    <i class="ham fas fa-bars fa-2x"></i>
+  </div>
+  <div id="welcome">
+      <h2>Welcome to Moody!</h2>
+      <hr>
+      <!-- <h3>I love to make things with both function and fashion.</h3> -->
+    <!-- <img id="portrait" src="media/me-vector.png" alt="portrait"> -->
+  </div>
+  <div id="application">
+
+  </div>
+    <section id="top">
+      <h3>POST Status Code Tests</h3>
+      <form id="nameForm" action="/addUser" method="post">
+        <label for="name">Name: </label>
+        <input id="nameField" type="text" name="name" />
+        <label for="age">Age: </label>
+        <input id="ageField" type="number" name="age" min="0" max="100" step="1"/>
+        <input type="submit" value="Add User" />
+      </form>
+      <form id="requestForm" action="/getUsers" method="get">
+        <select id='urlField'>
+          <option value='/getUsers'>/getUsers</option>
+          <option value='/notReal'>/notReal</option>
+        </select>
+        <select id="methodSelect">
+          <option value="get">GET</option>
+          <option value="head">HEAD</option>
+        </select>
+        <input type="submit" value="Send" />
+      </form>  </section>
+    <section id="output">
+    </section>
+    
+  <div id="contact">
+    <h2>About The Developer</h2>
+    <hr>
+    <div class="content">
+      <h2>My name's Olive Behan, pleasure to meet you!</h2>
+      <hr>
+      <p> I pride myself on the work that I have done for the web, using <strong>CSS</strong> and <strong>Javascript</strong>, and for client applications using <strong>C++</strong> and <strong>C#</strong>. I specialize in creating fluid user interfaces that are easy for anyone to use. When I'm not developing applications, I create fantasy music and host an apocalyse themed podcast.</p>
+    </br>
+      <h4><strong> Below is a collection of work that I think particularly demonstrates my skills.</strong></h4>
+    </div>
+    <hr>
+    <p>Want to get in touch with me? That's great! Send me an email, or find me in cyberspace. I will get back to you as soon as possible!</p>
+    <div class="socials">
+        <a href="mailto:toxicbrownie1998@gmail.com?Subject=Portfolio%20Contact" target="_top"><i class="fas fa-envelope-square fa-3x"></i></a>
+        <a href="https://www.facebook.com/OliveBehan98" target=""><i class="fab fa-facebook-square fa-3x"></i></a>
+        <a href="https://twitter.com/FollieFireGames" target=""><i class="fab fa-twitter-square fa-3x"></i></a>
+        <a href="https://www.linkedin.com/in/olive-behan-53713b127/" target=""><i class="fab fa-linkedin fa-3x"></i></a>
+        <a href="https://github.com/deb2610" target=""><i class="fab fa-github-square fa-3x"></i></a>
+    </div>
+
+  </div>
+  <div id="footer">
+    <p> © Olive D.E. Behan 2020. All Rights Reserved.</p>
+  </div>
+
+</div>
+<div class="longnav">
+    <!-- <a id="logo" href="#"><img id="logo-img" src="media/dbsmile-white.png" alt="logo"></a> -->
+    <i class="ham fas fa-bars fa-2x hamlong"></i>
+  </div>
+<div class="navmenu">
+  <!-- <a id="navlogo" href="#"><img id="logo-img" src="media/dbsmile-white.png" alt="logo"></a> -->
+  <i class="ham fas fa-times fa-2x hamClose"></i>
+  <ul class="navlist">
+    <li><a href="#nav">Top</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</div>
+  
 </body>
 </html>
