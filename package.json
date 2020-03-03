@@ -9,7 +9,7 @@
   },
   "scripts": {
     "start": "node ./src/server.js",
-    "nodemon": "nodemon -e js,html,css --watch ./src --watch ./hosted ./src/server.js",
+    "nodemon": "nodemon -e js,html,css,json --watch ./src --watch ./hosted ./src/server.js",
     "build": "babel ./client --out-file ./hosted/bundle.js",
     "watch": "babel --watch ./client --out-file ./hosted/bundle.js",
     "pretest": "eslint ./src --fix",
@@ -33,5 +33,8 @@
     "eslint-config-airbnb": "^15.1.0",
     "eslint-plugin-import": "^2.18.2",
     "nodemon": "^2.0.2"
+  },
+  "dependencies": {
+    "firebase-admin": "^8.9.2"
   }
 }

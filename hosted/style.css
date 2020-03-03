@@ -52,11 +52,43 @@ a:visited{
   text-decoration: none;
   color: var(--contrast-text-color);
 }
+.radio_item{
+display: none !important;
+}
+
+.label_item {
+opacity: 0.5;
+
+}.label_item:hover {
+opacity: 1;
+transition: transform .2s;
+transform: scale(1.25,1.25);
+}
+
+.radio_item:checked + label {
+opacity: 1;
+}
+#application{
+  grid-column: 2;
+}
 #application hr{
   border: 1px solid var(--contrast-text-color);
 }
 #application h2{
-  color: var(--contrast-text-color);
+  /* color: var(--contrast-text-color); */
+}
+.dark{
+  color: var(--main-text-color);
+}
+#login{
+  margin: 5% 0;
+  justify-content: center;
+  /* text-align: center;
+  grid-column: 2;
+  grid-row: 3; */
+}
+#login p{
+  color: var(--main-text-color);
 }
 #contact hr{
   border: 1px solid var(--contrast-text-color);
@@ -77,6 +109,63 @@ p{
   background-color: var(--main-UI-color);
   height: auto;
   min-height: 100vh;
+}
+#nametag-box{
+  opacity: 0;
+  transition: opacity 2s;
+  
+}
+#nametag{
+  margin-bottom: 2%;
+  text-align: center;
+  font-size: 16pt;
+}
+.typewrite {
+  overflow: hidden; /* Ensures the content is not revealed until the animation */
+  border-right: .15em solid var(--contrast-UI-color); /* The typwriter cursor */
+  white-space: nowrap; /* Keeps the content on a single line */
+  margin: 0 auto; /* Gives that scrolling effect as the typing happens */
+  letter-spacing: .12em; /* Adjust as needed */
+  animation: 
+    typing 3.5s steps(40, end),
+    blink-caret .75s step-end infinite;
+}
+
+/* The typing effect */
+@keyframes typing {
+  from { width: 0 }
+  to { width: 100% }
+}
+
+/* The typewriter cursor effect */
+@keyframes blink-caret {
+  from, to { border-color: transparent }
+  50% { border-color: var(--contrast-UI-color); }
+}
+
+#moodgrid{
+  opacity: 0;
+  transition: opacity 2s;
+  width: 100%;
+  /* padding: 0 15%; */
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  grid-row: 1fr;
+  background-color: var(--main-UI-color);
+  height: auto;
+  grid-column-gap: 3%;
+  justify-items: center;
+  justify-content: center;	
+  margin: 5% 0;
+
+}
+.fulllength-small{
+  margin-top: 3%;
+  grid-column: 1 / span 3;
+}.fulllength{
+  margin-top: 3%;
+  grid-column: 1 / span 5;
+  grid-row: 2;
 }
 #portContainer{
   display: grid;
@@ -103,9 +192,26 @@ p{
   color: var(--main-text-color);
   padding: 5vh;
   padding-bottom: 0;
+  text-align: center;
 
 }
+#nameForm{
+  transition: display 2s;
+  display: flex;
+  justify-content: center;
+  justify-self: center;
+  align-items: baseline;
 
+}
+.spacearound{
+  margin: 0 5px;
+}
+#welcome p{
+  color: var(--main-text-color);
+}
+#subdate p{
+  color: var(--main-text-color);
+}
 #about{
   grid-row: 3;
   grid-column: 1/4;
@@ -123,7 +229,13 @@ p{
   grid-template-rows: 1fr; */
 
 }
-#projects{
+.content h3{
+  margin: 3% 0;
+  color: var(--contrast-text-color);
+}
+#calender{
+  opacity: 0;
+  transition: opacity 2s;
   grid-row: 4;
   grid-column: 1/4;
   background-color: var(--main-UI-color);
@@ -131,8 +243,12 @@ p{
   padding: 5vh;
   padding-left: 5vw;
   padding-right: 5vw;
-
-
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+.calBox{
+  
+  border: 1px solid black;
 
 }
 #contact{
@@ -164,7 +280,10 @@ p{
   margin-top: .5vh;
   width: 4vh;
 }
-
+img {
+  max-width: 100%;
+  height: auto;
+}
 #navlogo{
   display: none;
   margin-left: 3vw;
@@ -183,55 +302,6 @@ p{
   margin-bottom: 3vh;
   margin-left: auto;
   margin-right: auto;
-}
-.pBox{
-  border-radius: 15px;
-  background-color: var(--contrast-UI-color);
-  height: auto;
-  width: auto;
-  grid-row: auto;
-  grid-column: auto;
-  background-position: center; 
-  background-repeat: no-repeat;
-  background-size: cover;
-  position: relative; 
-  padding-top: 5%;
-  padding-bottom: 5%;
-}
-.thumb{
-  display: block;
-  max-width: 100%;
-  margin: auto;
-  /* padding-top: 5%;
-  padding-bottom: 5%; */
-  z-index: 2;
-  opacity: 1;
-  transition: opacity .2s ease-in-out;
-}
-.thumb :hover{
-  opacity: 0;
-}
-.pContent{ 
-  border-radius: 15px;
-  /* border: 1px solid red; */
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  text-align: center;
-  top: 0px;
-  opacity: 0;
-  transition: opacity .2s ease-in-out;
-  font-size: 130%;
-}
-.pContent :hover{
-  opacity: 1;
-}
-.pContent p{
-  margin: 10%;
-  margin-bottom: 3%;
-}
-.pLink{
-  /* padding: 1vh; */
 }
 .fas{
   color: var(--contrast-text-color);
@@ -324,35 +394,9 @@ margin-right: 3vw;
 
 }
 @media only screen and (max-width: 1200px) {
-  #portContainer{
-      grid-template-columns: 3fr  3fr;
-      grid-template-rows: 1fr 1fr 1fr; 
-      grid-gap: 10px;
-      margin-top: 4vh;
-  }
-  .pContent{ 
-      font-size: 100%;
-     
- }
- .pContent p{
-     margin-top: 5%;
-     margin-bottom: 3%;
- }
+  
 }
 @media only screen and (max-width: 600px) {
-  #portContainer{
-      grid-template-columns: 3fr ;
-      grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
-      grid-gap: 10px;
-      margin-top: 4vh;
-  }
-  .pContent{ 
-       font-size: 120%;  
-  }
-  .pContent p{
-      margin-top: 5%;
-      margin-bottom: 3%;
-  }
   .navmenu{
       position: fixed;
       width: 100vw;

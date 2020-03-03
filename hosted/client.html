@@ -10,6 +10,26 @@
   <link href="https://fonts.googleapis.com/css?family=Merriweather+Sans:800" rel="stylesheet">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
   
+  <script src="https://www.gstatic.com/firebasejs/7.9.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.9.0/firebase-analytics.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.9.0/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.9.0/firebase-database.js"></script>
+  <script>
+  // Your web app's Firebase configuration
+  var firebaseConfig = {
+    apiKey: "AIzaSyCAnhL9fDrxIPTynwwX3oBhSAWVWo6vAvQ",
+    authDomain: "project1-f4ffd.firebaseapp.com",
+    databaseURL: "https://project1-f4ffd.firebaseio.com",
+    projectId: "project1-f4ffd",
+    storageBucket: "project1-f4ffd.appspot.com",
+    messagingSenderId: "946944095907",
+    appId: "1:946944095907:web:2272c6cfcd3e018f0d7116",
+    measurementId: "G-58C26J2XPG"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  firebase.analytics();
+  </script>
   <script src="/bundle.js"></script>
 </head>
 <body class="container">
@@ -20,45 +40,54 @@
   </div>
   <div id="welcome">
       <h2>Welcome to Moody!</h2>
+      <p>How are you feeling today?</p>
       <hr>
-      <!-- <h3>I love to make things with both function and fashion.</h3> -->
-    <!-- <img id="portrait" src="media/me-vector.png" alt="portrait"> -->
+      
   </div>
   <div id="application">
-
-  </div>
-    <section id="top">
-      <h3>POST Status Code Tests</h3>
+    <div id="login">
       <form id="nameForm" action="/addUser" method="post">
-        <label for="name">Name: </label>
-        <input id="nameField" type="text" name="name" />
-        <label for="age">Age: </label>
-        <input id="ageField" type="number" name="age" min="0" max="100" step="1"/>
-        <input type="submit" value="Add User" />
+        <label for="name" class="spacearound">Name: </label>
+        <input id="nameField" type="text" name="name" class="spacearound"/>
+        <input type="submit" value="Join!" class="spacearound"/> 
       </form>
-      <form id="requestForm" action="/getUsers" method="get">
-        <select id='urlField'>
-          <option value='/getUsers'>/getUsers</option>
-          <option value='/notReal'>/notReal</option>
-        </select>
-        <select id="methodSelect">
-          <option value="get">GET</option>
-          <option value="head">HEAD</option>
-        </select>
-        <input type="submit" value="Send" />
-      </form>  </section>
-    <section id="output">
-    </section>
+      <div id="nametag-box">
+        <p id="nametag"></p>
+        <p class="spacearound">Entry: </p> <span class="spacearound" id="currentDate"></span>
+      </div>
+    </div>
+    <form id="moodgrid" action="/addMood" method="post">
+      <!--RADIO 1-->
+      <input type="radio" class="radio_item" value="best" name="mood" id="best">
+      <label class="label_item" for="best"> <img src="/best.png" alt="best mood"> </label>
+      <!--RADIO 2-->
+      <input type="radio" class="radio_item" value="good" name="mood" id="good">
+      <label class="label_item" for="good"> <img src="/good.png" alt="good mood"> </label>
+      <!--RADIO 3-->
+      <input type="radio" class="radio_item" value="medium" name="mood" id="medium">
+      <label class="label_item" for="medium"> <img src="/medium.png" alt="medium mood"> </label>
+      <!--RADIO 4-->
+      <input type="radio" class="radio_item" value="bad" name="mood" id="bad">
+      <label class="label_item" for="bad"> <img src="/bad.png" alt="bad mood"> </label>
+      <!--RADIO 5-->
+      <input type="radio" class="radio_item" value="worst" name="mood" id="worst">
+      <label class="label_item" for="worst"> <img src="/worst.png" alt="worst mood"> </label>
+      <br>
+      <input type="submit" value="Submit Mood" class="fulllength"/>
+
+
+    </form>
+    <div id="calender"></div>  
+    <div id="output"></div>  
+  </div>
+    
     
   <div id="contact">
     <h2>About The Developer</h2>
     <hr>
     <div class="content">
-      <h2>My name's Olive Behan, pleasure to meet you!</h2>
-      <hr>
+      <h3>My name's Olive, pleasure to meet you!</h3>
       <p> I pride myself on the work that I have done for the web, using <strong>CSS</strong> and <strong>Javascript</strong>, and for client applications using <strong>C++</strong> and <strong>C#</strong>. I specialize in creating fluid user interfaces that are easy for anyone to use. When I'm not developing applications, I create fantasy music and host an apocalyse themed podcast.</p>
-    </br>
-      <h4><strong> Below is a collection of work that I think particularly demonstrates my skills.</strong></h4>
     </div>
     <hr>
     <p>Want to get in touch with me? That's great! Send me an email, or find me in cyberspace. I will get back to you as soon as possible!</p>

@@ -28,6 +28,28 @@ const handlePost = (request, response) => {
     jsonHandler.addUser(request, response, bodyParams);
   });
 };
+const handleMood = (request, response) => {
+  const body = [];
+
+  request.on('error', (err) => {
+    console.dir(err);
+    response.statusCode = 400;
+    response.end();
+  });
+
+  request.on('data', (chunk) => {
+    body.push(chunk);
+  });
+
+  request.on('end', () => {
+    const bodyString = Buffer.concat(body).toString();
+    const bodyParams = query.parse(bodyString);
+    console.dir(bodyString);
+    console.dir('_____________');
+    console.dir(bodyParams);
+    jsonHandler.addMood(request, response, bodyParams);
+  });
+};
 const urlStruct = {
   GET: {
     '/': htmlHandler.getIndex,
@@ -35,6 +57,13 @@ const urlStruct = {
     '/style.css': htmlHandler.getCSS,
     '/bundle.js': htmlHandler.getBundle,
     '/getUsers': jsonHandler.getUsers,
+    '/getFBUsers': jsonHandler.getFBUsers,
+    '/firebase.json': htmlHandler.getFirebase,
+    '/best.png': htmlHandler.getImgBest,
+    '/good.png': htmlHandler.getImgGood,
+    '/medium.png': htmlHandler.getImgMedium,
+    '/bad.png': htmlHandler.getImgBad,
+    '/worst.png': htmlHandler.getImgWorst,
     notFound: jsonHandler.notFound,
   },
   HEAD: {
@@ -43,6 +72,7 @@ const urlStruct = {
   },
   POST: {
     '/addUser': handlePost,
+    '/addMood': handleMood,
   },
 };
 const onRequest = (request, response) => {
